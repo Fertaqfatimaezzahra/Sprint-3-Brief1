@@ -4,17 +4,19 @@
 // Écrivez votre code ici, fonctionnalité par fonctionnalité.
 // Une carte GitHub Projects et au moins un commit par fonctionnalité.
 
+import { getcharacters} from "./src/services/API.js";
 
+let data=[]
+ data= await getcharacters()
 // -------------------------------------------------------------
 // 1. AFFICHAGE
 // Supprimez les cartes écrites à la main dans index.html et
 // construisez la grille à partir du tableau `creatures`.
 
-import { creatures } from './data.js'
-console.log(creatures)
+
 let get_grid = document.getElementById("grid")
 
-function afficherCreatures(liste) {
+export function afficherCreatures(liste) {
   get_grid.innerHTML = "";
 
   liste.forEach(cart => {
@@ -56,6 +58,7 @@ actualiserBoutonsEquipe();
 
 
 
+
 // -------------------------------------------------------------
 // 4. FILTRE
 // Les boutons de type n'affichent que les créatures de ce type ;
@@ -68,10 +71,10 @@ const filtres = document.getElementById("filters");
 
 let typeActif = "Tous";
 
-const types = [
-  "Tous",
-  ...new Set(creatures.map(personnage => personnage.type))
-];
+// const types = [
+//   "Tous",
+//   ...new Set(creatures.map(personnage => personnage.type))
+// ];
 
 function afficherFiltres() {
   filtres.innerHTML = types.map(type => `
@@ -113,7 +116,7 @@ filtres.addEventListener("click", event => {
   appliquerFiltres();
 });
 
-afficherFiltres();
+
 
 
 
@@ -130,7 +133,7 @@ afficherFiltres();
 const detail = document.getElementById("detail");
 detail.hidden = true;
 
-function afficherDetail(personnage) {
+export function afficherDetail(personnage) {
   detail.hidden = false;
 
   const statistiques = [
@@ -194,8 +197,7 @@ function afficherDetail(personnage) {
   actualiserBoutonsEquipe();
 }
 
-
- get_grid.addEventListener("click", (event) => {
+export function show(){get_grid.addEventListener("click", (event) => {
  
  const bouton = event.target.closest("[data-add]");
 
@@ -207,14 +209,15 @@ if (bouton) {
   const carte = event.target.closest("article[data-id]");
   if (!carte) return;
 
-  const personnage = creatures.find(
+  const personnage = data.find(
     personnage => personnage.id === carte.dataset.id
   );
 
   if (personnage) {
     afficherDetail(personnage);
   }
-});
+});}
+ 
 
 detail.addEventListener("click", event => {
   if (event.target.closest("[data-close]")) {
@@ -442,7 +445,7 @@ listeEquipe.addEventListener("click", event => {
 });
 
 afficherEquipe();
-afficherCreatures(creatures);
+
 
 // -------------------------------------------------------------
 // 7. RÈGLES DE L'ÉQUIPE
