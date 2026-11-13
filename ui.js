@@ -4,10 +4,10 @@
 // Écrivez votre code ici, fonctionnalité par fonctionnalité.
 // Une carte GitHub Projects et au moins un commit par fonctionnalité.
 
-import { getcharacters} from "./src/services/API.js";
+// import { getcharacters} from "./src/services/API.js";
 
-let data=[]
- data= await getcharacters()
+// let data=[]
+//  data= await getcharacters()
 // -------------------------------------------------------------
 // 1. AFFICHAGE
 // Supprimez les cartes écrites à la main dans index.html et
@@ -69,12 +69,18 @@ actualiserBoutonsEquipe();
 const recherche = document.getElementById("search");
 const filtres = document.getElementById("filters");
 
-let typeActif = "Tous";
+let type = ["Tous"];
 
 // const types = [
 //   "Tous",
 //   ...new Set(creatures.map(personnage => personnage.type))
 // ];
+let creatures =[]
+export function setcreatures(liste){
+  creatures = liste;
+  types = ["Tous",...new Set(liste.map(c=> c.type))];
+  afficherFiltres();
+}
 
 function afficherFiltres() {
   filtres.innerHTML = types.map(type => `
@@ -210,7 +216,7 @@ if (bouton) {
   if (!carte) return;
 
   const personnage = data.find(
-    personnage => personnage.id === carte.dataset.id
+    personnage => String(personnage.id) === carte.dataset.id
   );
 
   if (personnage) {
