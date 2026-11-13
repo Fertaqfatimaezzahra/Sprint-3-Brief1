@@ -1,6 +1,6 @@
 const url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0";
-export async function getcharacters(){
-   const url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0";  
+export async function getcharacters(offset = 0) {
+    const url = `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${offset}`; 
    try {
     const response = await fetch(url);
 
@@ -23,7 +23,7 @@ function transformeObj(obj){
 
     name: obj.name,
 
-    type: obj.attribute ?? null ,
+   type: obj.attribute ?? obj.type ?? "Unknown",
 
     level: obj.level ?? 0,
 

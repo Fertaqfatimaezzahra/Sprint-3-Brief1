@@ -9,12 +9,12 @@ module.exports = {
   brand: {
     DEFAULT: "#B91C1C",
     dark: "#7F1D1D",
-    light: "#F5E6C8",
+    light: "rgb(188, 149, 231)",
   },
   ink: "#142638",
   muted: "#586779",
   ground: "#FAF3E5",
-  line: "#D6C5A3",
+  line: "#24143F",
 },
       fontFamily: {
         display: ["Arial", "sans-serif"],

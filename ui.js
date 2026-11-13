@@ -69,7 +69,8 @@ actualiserBoutonsEquipe();
 const recherche = document.getElementById("search");
 const filtres = document.getElementById("filters");
 
-let type = ["Tous"];
+let types = ["Tous"];
+let typeActif = "Tous";
 
 // const types = [
 //   "Tous",
@@ -181,12 +182,12 @@ export function afficherDetail(personnage) {
         <div>
           <div class="flex justify-between text-sm">
             <span>${nom}</span>
-            <span>${valeur}/999</span>
+            <span>${valeur}</span>
           </div>
           <div class="h-3 rounded-full bg-ground">
             <div
               class="h-3 rounded-full bg-brand"
-              style="width: ${valeur / 999 * 100}%"
+          style="width: ${Math.min(valeur / 5000 * 100, 100)}%"
             ></div>
           </div>
         </div>
@@ -215,7 +216,7 @@ if (bouton) {
   const carte = event.target.closest("article[data-id]");
   if (!carte) return;
 
-  const personnage = data.find(
+  const personnage = creatures.find(
     personnage => String(personnage.id) === carte.dataset.id
   );
 
@@ -417,7 +418,7 @@ function afficherEquipe() {
 }
 
 function ajouterEquipe(id) {
-  if (equipe.some(personnage => personnage.id === id)) {
+  if (equipe.some(personnage => String(personnage.id) === id)) {
     messageEquipe.textContent = "Ce personnage est deja dans l'equipe.";
     return;
   }
@@ -427,7 +428,7 @@ function ajouterEquipe(id) {
     return;
   }
 
-  const personnage = creatures.find(personnage => personnage.id === id);
+  const personnage = creatures.find(personnage => String(personnage.id )=== id);
   if (!personnage) return;
 
   equipe.push(personnage);
@@ -443,7 +444,7 @@ listeEquipe.addEventListener("click", event => {
   if (!bouton) return;
 
   equipe = equipe.filter(
-    personnage => personnage.id !== bouton.dataset.remove
+    personnage => String(personnage.id) !== bouton.dataset.remove
   );
 
   afficherEquipe();
